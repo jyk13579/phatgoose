@@ -74,6 +74,7 @@ class Evaluator(Procedure):
         with torch.no_grad():
             for dataset in self.datasets:
                 print(f"\tEvaluating {dataset.name}...")
+                import pdb; pdb.set_trace()
                 if dataset.name in self._current_results:
                     continue
                 if dataset.metrics is None:

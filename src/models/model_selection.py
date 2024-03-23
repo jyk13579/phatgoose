@@ -16,6 +16,7 @@ def hf_torch_model(model_name_or_path, model_class=""):
         AutoModelForSeq2SeqLM,
         AutoModelForSequenceClassification,
         AutoModelForTokenClassification,
+        LlamaForCausalLM
     )
 
     model_class = {
@@ -35,12 +36,14 @@ def hf_torch_model(model_name_or_path, model_class=""):
 @gin.configurable(allowlist=["model_name_or_path"])
 def hf_tokenizer(model_name_or_path):
     model_name_or_path = os.path.expandvars(model_name_or_path)
-
+    # import pdb; pdb.set_trace()
     from transformers import AutoTokenizer
 
     tokenizer = AutoTokenizer.from_pretrained(model_name_or_path)
     if model_name_or_path.startswith("EleutherAI/pythia"):
         tokenizer.add_special_tokens({"pad_token": "<|padding|>"})
+    if model_name_or_path.startswith("meta-llama"):
+        tokenizer.pad_token = tokenizer.unk_token
     assert tokenizer.pad_token_id is not None
 
     test_tokens = tokenizer.build_inputs_with_special_tokens([-100])

@@ -39,6 +39,11 @@ all_model_shortcut_dict["cpt"] = {
     "before_inner_dim": r".*[.](k_proj|rope_k_proj|v_proj)",
     "all_linears": r".*[.]fc_(in|out|linear)|.*[.](rope_q|rope_k|q|k|v|o)_proj",
 }
+all_model_shortcut_dict["llama"] = {
+    "after_inner_dim": r".*[.]down_proj",
+    "before_inner_dim": r".*[.](gate_proj|up_proj)",
+    "all_linears": r".*[.](mlp|self_attn).*[.](gate|up|q|k|v|o)_proj",
+}
 
 
 @functools.lru_cache(maxsize=1)
@@ -73,6 +78,7 @@ def get_model_re_pattern(model, model_shortcuts: Union[str, List[str]]):
     Returns:
         model_re_pattern: a regular expression pattern for the model shortcuts.
     """
+    # import pdb; pdb.set_trace()
     if isinstance(model.torch_model, PreTrainedModel):
         model_type = model.torch_model.config.model_type
         model_shortcut_dict = get_model_shortcut_dict(model_type)

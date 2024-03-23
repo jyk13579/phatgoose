@@ -1,0 +1,48 @@
+import src.data
+
+D/InterfaceInfo:
+    interface = "lm"
+    length_normalization = True
+    multiple_choice_loss = 1
+    unlikelihood_loss = 1
+    num_beams = 3
+
+D/LlemmaDataset:
+    max_length = 4096
+    batch_size = 8
+    include_templates = "all"
+
+D/LLEMMA/LlemmaDataset:
+    dataset_path = ["huggingface", "EleutherAI/proof-pile-2", "arxiv"]
+    revision = "refs/pr/2"
+
+D/LLEMMA/TRAIN/build.cls = @LlemmaDataset
+D/LLEMMA/TRAIN/LlemmaDataset:
+    batch_size = 8
+    split = "train"
+    max_examples_per_dataset = 500_000
+
+D/LLEMMA/EVAL/build.cls = @LlemmaDataset
+D/LLEMMA/EVAL/InterfaceInfo.interface = "lm"
+D/LLEMMA/EVAL/LlemmaDataset:
+    split = "validation"
+    round_robin_template = True
+    include_templates = "original"
+
+
+#------------------------------GSM8K--------------------#
+
+D/GSM8KDataset:
+    max_length = 512
+    batch_size = 32
+    include_templates = "all"
+
+D/GSM8K/GSM8KDataset:
+    dataset_path = ["huggingface", "gsm8k", "main"]
+
+D/GSM8K/EVAL/build.cls = @GSM8KDataset
+D/GSM8K/EVAL/InterfaceInfo.interface = "gen"
+D/GSM8K/EVAL/GSM8KDataset:
+    split = "test[:100]"
+    round_robin_template = True
+    include_templates = "original"

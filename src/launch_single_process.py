@@ -43,7 +43,6 @@ def main(
     # Set global seeds
     if global_seed is not None:
         set_seeds(global_seed)
-
     # Build and link datasets, models and procedures
     logging.print_plate("Build and Link Objects")
     for procedure_name in procedure_exec_order:
@@ -71,6 +70,7 @@ def main(
 
     # Run procedures
     logging.print_plate("Run Procedures")
+    # import pdb; pdb.set_trace()
     for procedure_idx, procedure_name in enumerate(procedure_exec_order):
         if procedure_status[procedure_idx] == "finished":
             continue

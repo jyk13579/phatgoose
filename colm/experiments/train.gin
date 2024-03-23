@@ -46,7 +46,7 @@ P/EVALUATE/Evaluator:
         @MOMA/BEST/save_weights,
     ]
 P/EVALUATE/HELDOUT/Evaluator:
-    datasets = ["D/P3RTE/EVAL", "D/P3HSWAG/EVAL", "D/P3COPA/EVAL", "D/P3WIC/EVAL", "D/P3WINOGRANDE/EVAL", "D/P3CB/EVAL", "D/P3STORYCLOZE/EVAL", "D/P3ANLI/R1/EVAL", "D/P3ANLI/R2/EVAL", "D/P3ANLI/R3/EVAL", "D/P3WSCFIXED/EVAL"]
+    datasets = ["D/LLEMMA/EVAL"]
     better_model_moma_calls = []
 MOMA/BEST/save_weights:
     weight_path = "exp_out/${EXP_NAME}/best.pt"

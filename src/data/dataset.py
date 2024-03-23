@@ -55,6 +55,7 @@ class InterfaceInfo:
         "max_examples_per_dataset",
         "metrics",
         "max_length",
+        "revision"
     ]
 )
 class Dataset(torch.utils.data.Dataset):
@@ -64,6 +65,7 @@ class Dataset(torch.utils.data.Dataset):
         dataset_path,
         split,
         batch_size,
+        revision=None,
         seed=42,
         max_examples_per_dataset=None,
         metrics=None,
@@ -82,6 +84,7 @@ class Dataset(torch.utils.data.Dataset):
         self.dataset_path = dataset_path
         self.split = split
         self.batch_size = batch_size
+        self.revision = revision
         self.seed = seed
         self.max_examples_per_dataset = max_examples_per_dataset
         self.max_length = max_length
@@ -123,7 +126,7 @@ class Dataset(torch.utils.data.Dataset):
                 )
             else:
                 self._examples = load_huggingface_dataset(
-                    *self.dataset_path[1:], split=self.split
+                    *self.dataset_path[1:], split=self.split, revision=self.revision
                 )
             # TODO: it takes a lot of time for FLAN datasets, we can do this inside P3 datasets if needed
             # self._examples = [example for example in self._examples]
@@ -200,6 +203,7 @@ class Dataset(torch.utils.data.Dataset):
         The longer segments are truncated prior to the shorter ones.
         If tokenizer has a bos_token_id and/or eos_token_id, they are prepended and appended respectively.
         """
+        # import pdb; pdb.set_trace()
         tokens = []
         if isinstance(text, str):
             text = [text]

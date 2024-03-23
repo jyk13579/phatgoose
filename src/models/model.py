@@ -48,7 +48,7 @@ class Model(AddonControlMixin, InterfaceMixin):
         self.device = device
         self.pass_batch_input = pass_batch_input
         super().__init__(*args, **kwargs)
-
+        # import pdb; pdb.set_trace()
         for moma_call in init_moma_calls:
             moma_call(self)
         set_trainable_params(
@@ -82,6 +82,7 @@ class Model(AddonControlMixin, InterfaceMixin):
         Returns:
             batch_output: The output of the model.
         """
+        # import pdb; pdb.set_trace()
         self._clear_hiddens()
         if self.pass_batch_input:
             self.global_hidden_dict["batch_input"] = batch_input

@@ -111,6 +111,7 @@ class AddonControlMixin:
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        # import pdb; pdb.set_trace()
         self.addons = OrderedDict()
         self._module_dict = self._module_dict_no_addons = None
 

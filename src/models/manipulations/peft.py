@@ -90,6 +90,7 @@ def modify_with_lora(
 ):
     lora_modules = get_model_re_pattern(model, lora_modules)
     lora_layers = get_model_re_pattern(model, lora_layers)
+    # import pdb; pdb.set_trace()
     for module_name, module in dict(model.torch_model.named_modules()).items():
         if re.fullmatch(lora_modules, module_name):
             for c_name, layer in dict(module.named_children()).items():

@@ -31,7 +31,7 @@ def make_moe(
     """
     # get module dict
     module_dict = model.get_module_dict(exclude_addons=True)
-
+    # import pdb; pdb.set_trace()
     # translate module shortcuts to re pattern
     expert_pattern = get_model_re_pattern(model, expert_modules)
     router_pattern = get_model_re_pattern(model, router_modules)

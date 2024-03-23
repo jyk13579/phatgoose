@@ -139,6 +139,7 @@ class Trainer(Procedure):
             for _ in range(self.gradient_accumulation_factor):
                 batch_inputs = next(data_iter)
                 # TODO: Assuming all datasets have the same interface during training i.e lm
+                # import pdb; pdb.set_trace()
                 batch_dataset = self.datasets[0]
                 batch_outputs = self.model(
                     batch_inputs,

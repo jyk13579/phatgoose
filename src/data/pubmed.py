@@ -25,7 +25,7 @@ def find_label(target, answer_choices):
 
 
 @gin.configurable
-class P3Dataset(Dataset):
+class PubmedDataset(Dataset):
     def __init__(
         self,
         include_templates="original",
@@ -130,7 +130,6 @@ class P3Dataset(Dataset):
         template_idx = idx % len(self._templates)
         example = self._examples[example_idx]
         template = self._templates[template_idx]
-        # import pdb; pdb.set_trace()
         try:
             inputs_and_targets = template.apply(example)
         except:

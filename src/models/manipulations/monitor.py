@@ -37,7 +37,7 @@ def watch_hiddens(
     """
     # get module dict
     module_dict = model.get_module_dict(exclude_addons=True)
-
+    # import pdb; pdb.set_trace()
     # translate module shortcuts to re pattern
     prepare_mask_pattern = get_model_re_pattern(model, prepare_mask_modules)
     expose_hiddens_pattern = get_model_re_pattern(model, expose_hidden_modules)
