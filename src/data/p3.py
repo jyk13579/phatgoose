@@ -79,6 +79,7 @@ class P3Dataset(Dataset):
             self.include_templates,
             self.ignore_templates,
         )
+        print(f"templates len: {len(self._templates)}")
 
     def process_data(self):
         self._examples = [example for example in self._examples]
@@ -478,6 +479,18 @@ class LudwigDataset(P3Dataset):
         super().load_data()
         self._templates = [LudwigTemplate(i) for i in range(6)]
 
+
+@gin.configurable
+class WikihopDataset(P3Dataset):
+    def load_data(self):
+        super().load_data()
+        self._templates = [LudwigTemplate(i) for i in range(6)]
+        self._templates = self._get_templates(
+            DatasetTemplates('wiki_hop', 'original'),
+            self.include_templates,
+            self.ignore_templates,
+        )
+        print(f"templates len: {len(self._templates)}")
 
 if __name__ == "__main__":
     gin_config = """

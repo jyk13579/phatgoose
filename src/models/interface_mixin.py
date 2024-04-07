@@ -247,7 +247,7 @@ class InterfaceMixin:
     def generation_for_encdec(
         torch_model, tokenizer, batch_input, num_beams=1, max_gen_length=20
     ):
-        import pdb; pdb.set_trace()
+        # import pdb; pdb.set_trace()
         global_hidden_updates = {}
         input_ids = batch_input["input_ids"]
 
@@ -517,7 +517,7 @@ class InterfaceMixin:
         Find an interface_func speicified by interface_info (data-dependent) and interface_dict (model-dependent)
         Call the interface_func with batch_input and additional kwargs from interface_info.
         """  
-        import pdb; pdb.set_trace()
+        # import pdb; pdb.set_trace()
         batch_interface = interface_info.interface
         interface_func = self.interface_dict[batch_interface]
         interface_kwargs = {

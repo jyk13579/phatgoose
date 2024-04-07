@@ -593,18 +593,18 @@ D/P3TREC/EVAL/P3Dataset:
     split = "test"
     metrics = ["accuracy"]
     round_robin_template = True
-    include_templates = []
+    include_templates = "original"
 
 D/P3WIKIHOP/P3Dataset:
-    dataset_path = ["huggingface", "wiki_hop", "original"]
+    dataset_path = ["huggingface", "MoE-UNC/wikihop"]
 
-D/P3WIKIHOP/TRAIN/build.cls = @P3Dataset
+D/P3WIKIHOP/TRAIN/build.cls = @WikihopDataset
 D/P3WIKIHOP/TRAIN/P3Dataset:
     batch_size = 2
     split = "train"
     max_examples_per_dataset = 500_000
 
-D/P3WIKIHOP/EVAL/build.cls = @P3Dataset
+D/P3WIKIHOP/EVAL/build.cls = @WikihopDataset
 D/P3WIKIHOP/EVAL/InterfaceInfo.interface = "mc"
 D/P3WIKIHOP/EVAL/P3Dataset:
     batch_size = 4

@@ -10,7 +10,7 @@ from src.data.metrics import Scorer
 from src.procedures.procedure import Procedure
 from src.procedures.utils.batcher import SingleTaskBatcher
 from src.procedures.utils.result_aggregators import MainAggregator
-
+from tqdm import tqdm
 
 @gin.configurable(
     allowlist=[
@@ -74,20 +74,23 @@ class Evaluator(Procedure):
         with torch.no_grad():
             for dataset in self.datasets:
                 print(f"\tEvaluating {dataset.name}...")
-                import pdb; pdb.set_trace()
+                # import pdb; pdb.set_trace()
                 if dataset.name in self._current_results:
                     continue
                 if dataset.metrics is None:
                     continue
                 data_loader = self.batcher.build(dataset)
-                for batch_idx, batch_inputs in enumerate(data_loader):
+                # for batch_idx, batch_inputs in enumerate(data_loader):
+                max_batch_length = 100
+                for batch_idx, batch_inputs in enumerate(tqdm(data_loader, total=min(max_batch_length, len(data_loader)))):
                     batch_outputs = self.model(batch_inputs, dataset.interface_info, {})
                     self.scorer[dataset.name].add_batch(batch_inputs, batch_outputs)
                     for analysis_processor in self.analysis_processors:
                         analysis_processor.batch_process(
                             batch_inputs, batch_outputs, self.model.global_hidden_dict
                         )
-
+                    if batch_idx >= max_batch_length-1:
+                        break
                 self._current_results[dataset.name] = self.scorer[
                     dataset.name
                 ].get_score()
